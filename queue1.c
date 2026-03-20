@@ -54,7 +54,7 @@ boolean empty(const queue *q)
 
 boolean full(const queue *q)
 {
-    return FALSE; // <- Completa esta función
+    return FALSO; // <- Completa esta función
 }
 
 int main(void)
