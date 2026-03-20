@@ -98,3 +98,5 @@ int main(void)
     }
     return 0;
 }
+
+//Pregunta: De acuerdo con lo que imprime la consola, ¿qué está haciendo el bloque main? El main separa en dos colas las cuales son a y b segun su tipo y despues imprime los elementos segun el orden en el que fueron ingresados. 
