@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <assert.h>
+
+// Definimos el máximo en 6 según la nueva regla ---
+#define MAX 6  
+
+typedef unsigned int data;
+
+typedef struct {
+    data items[MAX];
+    int front;
+    int rear;
+    int count;
+} queue;
+
+// --- Funciones de la cola ---
+void initialize(queue *q) {
+    q->front = 0;
+    q->rear = -1;
+    q->count = 0;
+}
+
+bool full(queue *q) {
+    return q->count == MAX;
+}
+
+bool empty(queue *q) {
+    return q->count == 0;
+}
+
+void enqueue(data d, queue *q) {
+    q->rear = (q->rear + 1) % MAX;
+    q->items[q->rear] = d;
+    q->count++;
+}
+
+data dequeue(queue *q) {
+    data d = q->items[q->front];
+    q->front = (q->front + 1) % MAX;
+    q->count--;
+    return d;
+}
+
+data front(queue *q) {
+    return q->items[q->front];
+}
+
+data back(queue *q) {
+    return q->items[q->rear];
+}
+
+// --- main  ---
+int main(void) {
+    int c;
+    data pid;   
+    queue a;    
+
+    initialize(&a);
+
+    printf("SISTEMA DE COMANDAS (MAX 6)\n");
+    printf("Instrucciones:\n 'a [num]' -> Anotar\n 's' -> Servir\n 'v' -> Ver proximo\n 'u' -> Ver ultimo\n");
+
+    while ((c = getchar()) != EOF) {
+        switch (c) {
+            case 'a':   
+                
+                if (scanf("%u", &pid) == 1) { 
+                    if (!full(&a)) {
+                        enqueue(pid, &a);
+                        printf(">> Orden %u aceptada. (En espera: %d/6)\n", pid, a.count);
+                    } else {
+                        
+                        printf(">> ERROR: Limite alcanzado (6). Cliente desesperado, orden rechazada.\n");
+                    }
+                }
+                break;
+
+            case 's':   
+                if (!empty(&a)) {
+                    pid = dequeue(&a);
+                    printf(">> Platillo %u servido. (En espera: %d/6)\n", pid, a.count);
+                } else {
+                    printf(">> No hay mas comandas por servir.\n");
+                }
+                break;
+
+            case 'v':   
+                if (!empty(&a)) {
+                    printf(">> El proximo a servir es: %u\n", front(&a));
+                } else {
+                    printf(">> Cola vacia.\n");
+                }
+                break;
+
+            case 'u':   
+                if (!empty(&a)) {
+                    printf(">> El ultimo anotado fue: %u\n", back(&a));
+                } else {
+                    printf(">> No hay comandas.\n");
+                }
+                break;
+        }    
+    }
+
+    return 0;
+}

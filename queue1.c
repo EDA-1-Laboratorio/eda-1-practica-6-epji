@@ -44,7 +44,7 @@ void enqueue(data d, queue *q)
 
 data head(const queue *q)
 {
-    _______________________ // <- Completa esta función
+    return q->head->d; // <- Completa esta función
 }
 
 boolean empty(const queue *q)
@@ -54,7 +54,7 @@ boolean empty(const queue *q)
 
 boolean full(const queue *q)
 {
-    _______________________ // <- Completa esta función
+    return FALSO; // <- Completa esta función
 }
 
 int main(void)
@@ -98,3 +98,5 @@ int main(void)
     }
     return 0;
 }
+
+//Pregunta: De acuerdo con lo que imprime la consola, ¿qué está haciendo el bloque main? El main separa en dos colas las cuales son a y b segun su tipo y despues imprime los elementos segun el orden en el que fueron ingresados. 
